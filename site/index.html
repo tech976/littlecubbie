@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
   <style>@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 600;font-display: swap;src: url(assets/fonts/baloo2-extra.woff2) format('woff2');unicode-range: U+20B9, U+0915, U+0928, U+0939, U+093E, U+0940;}@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 600;font-display: swap;src: url(assets/fonts/baloo2-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 700;font-display: swap;src: url(assets/fonts/baloo2-extra.woff2) format('woff2');unicode-range: U+20B9, U+0915, U+0928, U+0939, U+093E, U+0940;}@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 700;font-display: swap;src: url(assets/fonts/baloo2-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 800;font-display: swap;src: url(assets/fonts/baloo2-extra.woff2) format('woff2');unicode-range: U+20B9, U+0915, U+0928, U+0939, U+093E, U+0940;}@font-face {font-family: 'Baloo 2';font-style: normal;font-weight: 800;font-display: swap;src: url(assets/fonts/baloo2-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Nunito';font-style: normal;font-weight: 400;font-display: swap;src: url(assets/fonts/nunito-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Nunito';font-style: normal;font-weight: 700;font-display: swap;src: url(assets/fonts/nunito-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Nunito';font-style: normal;font-weight: 800;font-display: swap;src: url(assets/fonts/nunito-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face {font-family: 'Gochi Hand';font-style: normal;font-weight: 400;font-display: swap;src: url(assets/fonts/gochihand-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+2000-206F;}</style>
   <link rel="preload" as="image" href="assets/video/cubbie-hero-poster.webp" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=fb013465">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -71,15 +71,109 @@
   </header>
 
   <main id="main">
+    <!-- Product: where ad visitors land -->
+    <section class="pdp screen" id="top" data-sky="morning" aria-labelledby="pdp-title">
+      <div class="wrap pdp__grid">
+        <div class="pdp__gallery">
+          <div class="pdp__stage" id="pdp-stage" style="--world:#ffb627">
+            <button class="pdp__main is-cutout" id="pdp-main" type="button" data-say="Hello, little friend!" data-voice="ganesh:hello">
+              <span class="visually-hidden" id="pdp-main-label">Say hi to Lord Ganesh</span>
+              <img id="pdp-img" src="assets/img/ganesh-480.webp" alt="Lord Ganesh cubbie toy" width="600" height="720" fetchpriority="high" draggable="false">
+              <span class="bubble" aria-hidden="true"></span>
+            </button>
+            <p class="note note--pdp" id="pdp-note" aria-hidden="true">tap me, I talk!</p>
+            <p class="sticker sticker--pdp" aria-hidden="true">Ages 3+</p>
+          </div>
+          <div class="pdp__thumbs" id="pdp-thumbs" role="group" aria-label="Product photos">
+            <button class="pdp__thumb is-on" type="button" data-slide="0" aria-pressed="true"><img src="assets/img/ganesh-300.webp" alt="Lord Ganesh cubbie" width="300" height="360" style="background:#ffb627"></button>
+            <button class="pdp__thumb" type="button" data-slide="1" aria-pressed="false"><img src="assets/img/pdp/ganesh-1-t.webp" alt="Child playing with the Lord Ganesh cubbie and a tablet" width="160" height="160" loading="lazy"></button>
+            <button class="pdp__thumb" type="button" data-slide="2" aria-pressed="false"><img src="assets/img/pdp/ganesh-2-t.webp" alt="Lord Ganesh works with the Cubbie Box, tablets and phones" width="160" height="160" loading="lazy"></button>
+            <button class="pdp__thumb" type="button" data-slide="3" aria-pressed="false"><img src="assets/img/pdp/ganesh-3-t.webp" alt="Child enjoying Lord Ganesh on the Cubbie Box" width="160" height="160" loading="lazy"></button>
+            <button class="pdp__thumb" type="button" data-slide="4" aria-pressed="false"><img src="assets/img/pdp/ganesh-4-t.webp" alt="Why parents love Lord Ganesh: low-stimulation play, educational stories, Indian folktales, soothing audio, written by teachers, ages 3+" width="160" height="160" loading="lazy"></button>
+          </div>
+        </div>
+
+        <div class="pdp__info">
+          <h1 class="pdp__title" id="pdp-title"><span id="pdp-name">Lord Ganesh</span> story cubbie</h1>
+          <p class="pdp__tag" id="pdp-values">Wisdom, kindness and playful adventures</p>
+          <p class="pdp__price"><span id="pdp-price">₹750</span><span class="pdp__price-note">30+ stories, songs and games inside</span></p>
+
+          <fieldset class="pdp__pick">
+            <legend>Choose your cubbie</legend>
+            <div class="pdp__faces">
+              <label class="face" style="--world:#ffb627" title="Lord Ganesh">
+                <input type="radio" name="cubbie" value="ganesh" checked>
+                <img src="assets/img/ganesh-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Ganesh</span>
+              </label>
+              <label class="face" style="--world:#ff8a65" title="Lord Hanuman">
+                <input type="radio" name="cubbie" value="hanuman">
+                <img src="assets/img/hanuman-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Hanuman</span>
+              </label>
+              <label class="face" style="--world:#5cc98a" title="Lord Ram">
+                <input type="radio" name="cubbie" value="ram">
+                <img src="assets/img/ram-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Ram</span>
+              </label>
+              <label class="face" style="--world:#ff9bc4" title="Bal Krishna">
+                <input type="radio" name="cubbie" value="krishna">
+                <img src="assets/img/krishna-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Krishna</span>
+              </label>
+              <label class="face" style="--world:#6bb8ff" title="Bal Bheem">
+                <input type="radio" name="cubbie" value="bheem">
+                <img src="assets/img/bheem-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Bal Bheem</span>
+              </label>
+              <label class="face" style="--world:#b59bff" title="Birbal">
+                <input type="radio" name="cubbie" value="birbal">
+                <img src="assets/img/birbal-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Birbal</span>
+              </label>
+              <label class="face" style="--world:#c5e86c" title="Tenali Rama">
+                <input type="radio" name="cubbie" value="tenali">
+                <img src="assets/img/tenali-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">Tenali Rama</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="pdp__buy">
+            <div class="qty" role="group" aria-label="Quantity">
+              <button type="button" class="qty__btn" data-step="-1" aria-label="One less">−</button>
+              <output class="qty__n" id="pdp-qty" aria-live="polite">1</output>
+              <button type="button" class="qty__btn" data-step="1" aria-label="One more">+</button>
+            </div>
+            <a class="btn pdp__buynow" id="pdp-buy" href="https://littlecubbie.com/cart/46034661212348:1">Buy now</a>
+            <button class="btn btn--white pdp__shelf" id="pdp-shelf" type="button" aria-pressed="false">Add to shelf</button>
+          </div>
+          <p class="pdp__secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout on littlecubbie.com</p>
+
+          <ul class="pdp__perks">
+            <li><span class="perk-ico" style="--c:#ffb627">★</span>30+ stories, songs, games and activities</li>
+            <li><span class="perk-ico" style="--c:#6bb8ff">◎</span>Works on phone, tablet and Cubbie Box</li>
+            <li><span class="perk-ico" style="--c:#5cc98a">✎</span>Written by teachers, gently paced</li>
+            <li><span class="perk-ico" style="--c:#ff9bc4">♥</span>No batteries, no charging</li>
+          </ul>
+
+          <details class="pdp__more">
+            <summary><span>About <span id="pdp-about-name">Lord Ganesh</span></span></summary>
+            <p id="pdp-about">Meet Lord Ganesh, the lovable little god with a big heart, a curious mind and plenty of playful adventures. Children learn about kindness, courage, wisdom, family and overcoming challenges through stories written by teachers especially for young minds.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- Hero -->
-    <section class="hero screen" id="top" data-sky="morning" aria-labelledby="hero-title">
+    <section class="hero screen" id="story" data-sky="morning" aria-labelledby="hero-title">
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <p class="note note--hero" aria-hidden="true">psst… they really talk!<img src="assets/img/doodle/arrow.webp" alt="" width="200" height="84"></p>
-          <h1 id="hero-title">
+          <h2 class="hero__title" id="hero-title">
             <span class="visually-hidden">Tap a toy. Hear a story.</span>
             <span class="bouncy" aria-hidden="true"><span class="line"><span class="word" style="--c:#ffb627;--tilt:-3deg"><span class="ch" style="--i:0">T</span><span class="ch" style="--i:1">a</span><span class="ch" style="--i:2">p</span></span> <span class="word" style="--c:#ff8fb8;--tilt:3deg"><span class="ch" style="--i:3">a</span></span> <span class="word" style="--c:#5cc98a;--tilt:-2deg"><span class="ch" style="--i:4">t</span><span class="ch" style="--i:5">o</span><span class="ch" style="--i:6">y</span><span class="ch" style="--i:7">.</span></span></span><span class="line"><span class="word" style="--c:#6bb8ff;--tilt:2deg"><span class="ch" style="--i:8">H</span><span class="ch" style="--i:9">e</span><span class="ch" style="--i:10">a</span><span class="ch" style="--i:11">r</span></span> <span class="word" style="--c:#ff8a65;--tilt:-3deg"><span class="ch" style="--i:12">a</span></span> <span class="word" style="--c:#b59bff;--tilt:2deg"><span class="ch" style="--i:13">s</span><span class="ch" style="--i:14">t</span><span class="ch" style="--i:15">o</span><span class="ch" style="--i:16">r</span><span class="ch" style="--i:17">y</span><span class="ch" style="--i:18">.</span></span></span></span>
-          </h1>
+          </h2>
           <p class="hero__lede">Every Little Cubbie has a tiny chip inside. <strong>Set Ganesh, Hanuman or Birbal on your phone</strong> and they start telling your child stories, songs and riddles.</p>
           <div class="hero__actions">
             <a class="btn" href="#cubbies">Choose a cubbie</a>
@@ -110,22 +204,22 @@
 
       <div class="land land--day">
         <img class="land__art" src="assets/img/world/hills.webp" srcset="assets/img/world/hills-800.webp 800w, assets/img/world/hills.webp 1600w" sizes="100vw" alt="" width="1600" height="533">
-        <button class="buddy" type="button" data-say="I'm super strong!" style="--x:11%;--b:4%;--n:0">
+        <button class="buddy" type="button" data-say="I'm super strong!" data-voice="bheem:hello" style="--x:11%;--b:4%;--n:0">
           <span class="visually-hidden">Say hi to Bal Bheem</span>
           <img src="assets/img/bheem-300.webp" alt="" width="300" height="360" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Shh… seen my butter?" style="--x:37%;--b:2%;--n:1">
+        <button class="buddy" type="button" data-say="Shh… seen my butter?" data-voice="krishna:hello" style="--x:37%;--b:2%;--n:1">
           <span class="visually-hidden">Say hi to Bal Krishna</span>
           <img src="assets/img/krishna-300.webp" alt="" width="300" height="360" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Jai ho! Let's fly!" style="--x:63%;--b:3%;--n:2">
+        <button class="buddy" type="button" data-say="Jai ho! Let's fly!" data-voice="hanuman:hello" style="--x:63%;--b:3%;--n:2">
           <span class="visually-hidden">Say hi to Lord Hanuman</span>
           <img src="assets/img/hanuman-300.webp" alt="" width="300" height="360" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Got a riddle for me?" style="--x:89%;--b:4%;--n:3">
+        <button class="buddy" type="button" data-say="Got a riddle for me?" data-voice="birbal:hello" style="--x:89%;--b:4%;--n:3">
           <span class="visually-hidden">Say hi to Birbal</span>
           <img src="assets/img/birbal-300.webp" alt="" width="300" height="360" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
@@ -185,7 +279,7 @@
                   </div>
                 </div>
               </div>
-              <p class="stage__fine">A quick sample voice from your browser. Real cubbies unlock full stories, songs and games in the app.</p>
+              <p class="stage__fine">A short sample voice. Real cubbies unlock full stories, songs and games in the app.</p>
               <p class="visually-hidden" aria-live="polite" id="stage-status"></p>
             </div>
           </div>
@@ -205,7 +299,7 @@
           
           <li class="pal" style="--world:#ffb627">
             <span class="pal__sticker" aria-hidden="true">So wise!</span>
-            <button class="pal__window" type="button" data-say="Hello, little friend!"><span class="visually-hidden">Say hi to Lord Ganesh</span>
+            <button class="pal__window" type="button" data-say="Hello, little friend!" data-voice="ganesh:hello"><span class="visually-hidden">Say hi to Lord Ganesh</span>
               <img class="pal__img" src="assets/img/ganesh-480.webp" srcset="assets/img/ganesh-300.webp 300w, assets/img/ganesh-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Lord Ganesh cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -221,7 +315,7 @@
           </li>
           <li class="pal" style="--world:#ff8a65">
             <span class="pal__sticker" aria-hidden="true">Super brave!</span>
-            <button class="pal__window" type="button" data-say="Jai ho! Let's fly!"><span class="visually-hidden">Say hi to Lord Hanuman</span>
+            <button class="pal__window" type="button" data-say="Jai ho! Let's fly!" data-voice="hanuman:hello"><span class="visually-hidden">Say hi to Lord Hanuman</span>
               <img class="pal__img" src="assets/img/hanuman-480.webp" srcset="assets/img/hanuman-300.webp 300w, assets/img/hanuman-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Lord Hanuman cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -237,7 +331,7 @@
           </li>
           <li class="pal" style="--world:#5cc98a">
             <span class="pal__sticker" aria-hidden="true">Kind heart!</span>
-            <button class="pal__window" type="button" data-say="Namaste! Be kind today."><span class="visually-hidden">Say hi to Lord Ram</span>
+            <button class="pal__window" type="button" data-say="Namaste! Be kind today." data-voice="ram:hello"><span class="visually-hidden">Say hi to Lord Ram</span>
               <img class="pal__img" src="assets/img/ram-480.webp" srcset="assets/img/ram-300.webp 300w, assets/img/ram-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Lord Ram cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -253,7 +347,7 @@
           </li>
           <li class="pal" style="--world:#ff9bc4">
             <span class="pal__sticker" aria-hidden="true">Little prankster!</span>
-            <button class="pal__window" type="button" data-say="Shh… seen my butter?"><span class="visually-hidden">Say hi to Bal Krishna</span>
+            <button class="pal__window" type="button" data-say="Shh… seen my butter?" data-voice="krishna:hello"><span class="visually-hidden">Say hi to Bal Krishna</span>
               <img class="pal__img" src="assets/img/krishna-480.webp" srcset="assets/img/krishna-300.webp 300w, assets/img/krishna-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Bal Krishna cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -269,7 +363,7 @@
           </li>
           <li class="pal" style="--world:#6bb8ff">
             <span class="pal__sticker" aria-hidden="true">Mighty!</span>
-            <button class="pal__window" type="button" data-say="I'm super strong!"><span class="visually-hidden">Say hi to Bal Bheem</span>
+            <button class="pal__window" type="button" data-say="I'm super strong!" data-voice="bheem:hello"><span class="visually-hidden">Say hi to Bal Bheem</span>
               <img class="pal__img" src="assets/img/bheem-480.webp" srcset="assets/img/bheem-300.webp 300w, assets/img/bheem-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Bal Bheem cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -285,7 +379,7 @@
           </li>
           <li class="pal" style="--world:#b59bff">
             <span class="pal__sticker" aria-hidden="true">Riddle master!</span>
-            <button class="pal__window" type="button" data-say="Got a riddle for me?"><span class="visually-hidden">Say hi to Birbal</span>
+            <button class="pal__window" type="button" data-say="Got a riddle for me?" data-voice="birbal:hello"><span class="visually-hidden">Say hi to Birbal</span>
               <img class="pal__img" src="assets/img/birbal-480.webp" srcset="assets/img/birbal-300.webp 300w, assets/img/birbal-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Birbal cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -301,7 +395,7 @@
           </li>
           <li class="pal" style="--world:#c5e86c">
             <span class="pal__sticker" aria-hidden="true">Clever clogs!</span>
-            <button class="pal__window" type="button" data-say="Hee hee! I have a plan."><span class="visually-hidden">Say hi to Tenali Rama</span>
+            <button class="pal__window" type="button" data-say="Hee hee! I have a plan." data-voice="tenali:hello"><span class="visually-hidden">Say hi to Tenali Rama</span>
               <img class="pal__img" src="assets/img/tenali-480.webp" srcset="assets/img/tenali-300.webp 300w, assets/img/tenali-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="Tenali Rama cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -451,37 +545,37 @@
       </div>
       <div class="land land--night">
         <img class="land__art" src="assets/img/world/hills.webp" srcset="assets/img/world/hills-800.webp 800w, assets/img/world/hills.webp 1600w" sizes="100vw" alt="" width="1600" height="533" loading="lazy">
-        <button class="buddy" type="button" data-say="Goodnight!" style="--x:10%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:0">
+        <button class="buddy" type="button" data-say="Goodnight!" data-voice="ganesh:night" style="--x:10%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:0">
           <span class="visually-hidden">Say hi to Lord Ganesh</span>
           <img src="assets/img/ganesh-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Sweet dreams!" style="--x:23.33%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:1">
+        <button class="buddy" type="button" data-say="Sweet dreams!" data-voice="hanuman:night" style="--x:23.33%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:1">
           <span class="visually-hidden">Say hi to Lord Hanuman</span>
           <img src="assets/img/hanuman-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="See you tomorrow!" style="--x:36.66%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:2">
+        <button class="buddy" type="button" data-say="See you tomorrow!" data-voice="ram:night" style="--x:36.66%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:2">
           <span class="visually-hidden">Say hi to Lord Ram</span>
           <img src="assets/img/ram-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Sleep tight!" style="--x:49.99%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:3">
+        <button class="buddy" type="button" data-say="Sleep tight!" data-voice="krishna:night" style="--x:49.99%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:3">
           <span class="visually-hidden">Say hi to Bal Krishna</span>
           <img src="assets/img/krishna-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false"><span class="zzz" aria-hidden="true">zzz</span>
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Shh… bedtime!" style="--x:63.32%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:4">
+        <button class="buddy" type="button" data-say="Shh… bedtime!" data-voice="bheem:night" style="--x:63.32%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:4">
           <span class="visually-hidden">Say hi to Bal Bheem</span>
           <img src="assets/img/bheem-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Nighty night!" style="--x:76.65%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:5">
+        <button class="buddy" type="button" data-say="Nighty night!" data-voice="birbal:night" style="--x:76.65%;--b:5%;--w:clamp(58px, 9vw, 138px);--n:5">
           <span class="visually-hidden">Say hi to Birbal</span>
           <img src="assets/img/birbal-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
         </button>
-        <button class="buddy" type="button" data-say="Dream big!" style="--x:89.98%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:6">
+        <button class="buddy" type="button" data-say="Dream big!" data-voice="tenali:night" style="--x:89.98%;--b:9%;--w:clamp(58px, 9vw, 138px);--n:6">
           <span class="visually-hidden">Say hi to Tenali Rama</span>
           <img src="assets/img/tenali-300.webp" alt="" width="300" height="360" loading="lazy" draggable="false">
           <span class="bubble" aria-hidden="true"></span>
@@ -519,6 +613,6 @@
     <filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
   </svg>
 
-  <script src="app.js" type="module"></script>
+  <script src="app.js?v=d860589ca958c25c96d8f9b2" type="module"></script>
 </body>
 </html>

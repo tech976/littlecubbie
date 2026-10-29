@@ -71,15 +71,71 @@
   </header>
 
   <main id="main">
+    <!-- Product: where ad visitors land -->
+    <section class="pdp screen" id="top" data-sky="morning" aria-labelledby="pdp-title">
+      <div class="wrap pdp__grid">
+        <div class="pdp__gallery">
+          <div class="pdp__stage" id="pdp-stage" style="--world:{{PDP_WORLD}}">
+            <button class="pdp__main is-cutout" id="pdp-main" type="button" data-say="{{PDP_SAY}}" data-voice="{{PDP_ID}}:hello">
+              <span class="visually-hidden" id="pdp-main-label">Say hi to {{PDP_NAME}}</span>
+              <img id="pdp-img" src="assets/img/{{PDP_ID}}-480.webp" alt="{{PDP_NAME}} cubbie toy" width="600" height="720" fetchpriority="high" draggable="false">
+              <span class="bubble" aria-hidden="true"></span>
+            </button>
+            <p class="note note--pdp" id="pdp-note" aria-hidden="true">tap me, I talk!</p>
+            <p class="sticker sticker--pdp" aria-hidden="true">Ages 3+</p>
+          </div>
+          <div class="pdp__thumbs" id="pdp-thumbs" role="group" aria-label="Product photos">
+            {{PDP_THUMBS}}
+          </div>
+        </div>
+
+        <div class="pdp__info">
+          <h1 class="pdp__title" id="pdp-title"><span id="pdp-name">{{PDP_NAME}}</span> story cubbie</h1>
+          <p class="pdp__tag" id="pdp-values">{{PDP_VALUES}}</p>
+          <p class="pdp__price"><span id="pdp-price">₹{{PDP_PRICE}}</span><span class="pdp__price-note">30+ stories, songs and games inside</span></p>
+
+          <fieldset class="pdp__pick">
+            <legend>Choose your cubbie</legend>
+            <div class="pdp__faces">
+              {{PDP_PICKER}}
+            </div>
+          </fieldset>
+
+          <div class="pdp__buy">
+            <div class="qty" role="group" aria-label="Quantity">
+              <button type="button" class="qty__btn" data-step="-1" aria-label="One less">−</button>
+              <output class="qty__n" id="pdp-qty" aria-live="polite">1</output>
+              <button type="button" class="qty__btn" data-step="1" aria-label="One more">+</button>
+            </div>
+            <a class="btn pdp__buynow" id="pdp-buy" href="{{PDP_CART}}">Buy now</a>
+            <button class="btn btn--white pdp__shelf" id="pdp-shelf" type="button" aria-pressed="false">Add to shelf</button>
+          </div>
+          <p class="pdp__secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout on littlecubbie.com</p>
+
+          <ul class="pdp__perks">
+            <li><span class="perk-ico" style="--c:#ffb627">★</span>30+ stories, songs, games and activities</li>
+            <li><span class="perk-ico" style="--c:#6bb8ff">◎</span>Works on phone, tablet and Cubbie Box</li>
+            <li><span class="perk-ico" style="--c:#5cc98a">✎</span>Written by teachers, gently paced</li>
+            <li><span class="perk-ico" style="--c:#ff9bc4">♥</span>No batteries, no charging</li>
+          </ul>
+
+          <details class="pdp__more">
+            <summary><span>About <span id="pdp-about-name">{{PDP_NAME}}</span></span></summary>
+            <p id="pdp-about">{{PDP_ABOUT}}</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- Hero -->
-    <section class="hero screen" id="top" data-sky="morning" aria-labelledby="hero-title">
+    <section class="hero screen" id="story" data-sky="morning" aria-labelledby="hero-title">
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <p class="note note--hero" aria-hidden="true">psst… they really talk!<img src="assets/img/doodle/arrow.webp" alt="" width="200" height="84"></p>
-          <h1 id="hero-title">
+          <h2 class="hero__title" id="hero-title">
             <span class="visually-hidden">Tap a toy. Hear a story.</span>
             {{HEADLINE}}
-          </h1>
+          </h2>
           <p class="hero__lede">Every Little Cubbie has a tiny chip inside. <strong>Set Ganesh, Hanuman or Birbal on your phone</strong> and they start telling your child stories, songs and riddles.</p>
           <div class="hero__actions">
             <a class="btn" href="#cubbies">Choose a cubbie</a>
@@ -160,7 +216,7 @@
                   </div>
                 </div>
               </div>
-              <p class="stage__fine">A quick sample voice from your browser. Real cubbies unlock full stories, songs and games in the app.</p>
+              <p class="stage__fine">A short sample voice. Real cubbies unlock full stories, songs and games in the app.</p>
               <p class="visually-hidden" aria-live="polite" id="stage-status"></p>
             </div>
           </div>

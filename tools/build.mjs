@@ -21,10 +21,10 @@ const headline = `<span class="bouncy" aria-hidden="true">${HEADLINE_WORDS.map((
     `<span class="word" style="--c:${c};--tilt:${tilt}deg">${[...w].map((ch) => `<span class="ch" style="--i:${i++}">${ch}</span>`).join("")}</span>`
   ).join(" ")}</span>`).join("")}</span>`;
 
-const buddy = (id, { x, b = "8%", w, n = 0, say, extra = "", eager = false }) => {
+const buddy = (id, { x, b = "8%", w, n = 0, say, clip = "hello", extra = "", eager = false }) => {
   const c = byId[id];
   const style = [`--x:${x}`, `--b:${b}`, w && `--w:${w}`, `--n:${n}`].filter(Boolean).join(";");
-  return `<button class="buddy" type="button" data-say="${esc(say ?? c.say)}" style="${style}">
+  return `<button class="buddy" type="button" data-say="${esc(say ?? c.say)}" data-voice="${id}:${clip}" style="${style}">
           <span class="visually-hidden">Say hi to ${esc(c.name)}</span>
           <img src="assets/img/${id}-300.webp" alt="" width="300" height="360"${eager ? "" : ' loading="lazy"'} draggable="false">${extra}
           <span class="bubble" aria-hidden="true"></span>
@@ -38,9 +38,8 @@ const heroBuddies = [
   buddy("birbal", { x: "89%", b: "4%", n: 3, eager: true }),
 ].join("\n        ");
 
-const NIGHT_SAY = ["Goodnight!", "Sweet dreams!", "See you tomorrow!", "Sleep tight!", "Shh… bedtime!", "Nighty night!", "Dream big!"];
 const nightBuddies = CUBBIES.map((c, k) =>
-  buddy(c.id, { x: `${10 + k * 13.33}%`, b: k % 2 ? "5%" : "9%", w: "clamp(58px, 9vw, 138px)", n: k, say: NIGHT_SAY[k], extra: k === 3 ? `<span class="zzz" aria-hidden="true">zzz</span>` : "" })
+  buddy(c.id, { x: `${10 + k * 13.33}%`, b: k % 2 ? "5%" : "9%", w: "clamp(58px, 9vw, 138px)", n: k, say: c.night, clip: "night", extra: k === 3 ? `<span class="zzz" aria-hidden="true">zzz</span>` : "" })
 ).join("\n        ");
 
 const shelf = CUBBIES.map((c) =>
@@ -55,7 +54,7 @@ const icon = {
 const gang = CUBBIES.map((c) => `
           <li class="pal" style="--world:${c.world}">
             <span class="pal__sticker" aria-hidden="true">${esc(c.sticker)}!</span>
-            <button class="pal__window" type="button" data-say="${esc(c.say)}"><span class="visually-hidden">Say hi to ${esc(c.name)}</span>
+            <button class="pal__window" type="button" data-say="${esc(c.say)}" data-voice="${c.id}:hello"><span class="visually-hidden">Say hi to ${esc(c.name)}</span>
               <img class="pal__img" src="assets/img/${c.id}-480.webp" srcset="assets/img/${c.id}-300.webp 300w, assets/img/${c.id}-480.webp 600w" sizes="(max-width: 560px) 46vw, 290px" alt="${esc(c.name)} cubbie toy" width="600" height="720" loading="lazy" draggable="false">
               <span class="bubble" aria-hidden="true"></span>
             </button>
@@ -77,6 +76,19 @@ const gangAll = `<div class="gang-all">
           <button class="pick pick--all" type="button" data-all aria-pressed="false" aria-label="Add all 7 cubbies to shelf">${icon.plus}${icon.tick}<span>Add all 7</span></button>
         </div>`;
 
+// Product section: Ganesh by default; ?cubbie=<id> switches it in the browser.
+const pdp = CUBBIES[0];
+const photo = (c, n) => c.photoAlts[n - 1].replaceAll("{n}", c.name);
+const pdpThumbs = [
+  `<button class="pdp__thumb is-on" type="button" data-slide="0" aria-pressed="true"><img src="assets/img/${pdp.id}-300.webp" alt="${esc(pdp.name)} cubbie" width="300" height="360" style="background:${pdp.world}"></button>`,
+  ...[1, 2, 3, 4].map((n) => `<button class="pdp__thumb" type="button" data-slide="${n}" aria-pressed="false"><img src="assets/img/pdp/${pdp.id}-${n}-t.webp" alt="${esc(photo(pdp, n))}" width="160" height="160" loading="lazy"></button>`),
+].join("\n            ");
+const pdpPicker = CUBBIES.map((c, k) => `<label class="face" style="--world:${c.world}" title="${esc(c.name)}">
+                <input type="radio" name="cubbie" value="${c.id}"${k === 0 ? " checked" : ""}>
+                <img src="assets/img/${c.id}-300.webp" alt="" width="300" height="360" loading="lazy">
+                <span class="face__name">${esc(c.id === "bheem" ? c.name : short(c.name))}</span>
+              </label>`).join("\n              ");
+
 let html = readFileSync(join(root, "src/index.template.html"), "utf8");
 const parts = {
   FONTS: readFileSync(join(root, "src/fonts.inline.html"), "utf8").trim(),
@@ -86,10 +98,23 @@ const parts = {
   SHELF: shelf,
   GANG: gang,
   GANG_ALL: gangAll,
+  PDP_THUMBS: pdpThumbs,
+  PDP_PICKER: pdpPicker,
 };
+const scalars = {
+  PDP_ID: pdp.id, PDP_NAME: esc(pdp.name), PDP_SAY: esc(pdp.say), PDP_WORLD: pdp.world,
+  PDP_VALUES: esc(pdp.values), PDP_PRICE: String(pdp.price), PDP_ABOUT: esc(pdp.about),
+  PDP_CART: `${STORE}/cart/${pdp.variant}:1`,
+};
+for (const [k, v] of Object.entries(scalars)) html = html.replaceAll(`{{${k}}}`, v);
 for (const [k, v] of Object.entries(parts)) {
   if (!html.includes(`{{${k}}}`)) throw new Error(`Missing {{${k}}} in template`);
   html = html.replace(`{{${k}}}`, v);
 }
+// Version-stamp the stylesheet and script so browsers fetch fresh copies after each change.
+import { createHash } from "node:crypto";
+const stamp = (f) => createHash("sha1").update(readFileSync(join(root, "site", f))).digest("hex").slice(0, 8);
+html = html.replace('href="styles.css"', `href="styles.css?v=${stamp("styles.css")}"`)
+           .replace('src="app.js"', `src="app.js?v=${stamp("app.js") + stamp("cubbies.js") + stamp("voices.js")}"`);
 writeFileSync(join(root, "site/index.html"), html);
 console.log("Built site/index.html");

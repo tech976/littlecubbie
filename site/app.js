@@ -1,4 +1,5 @@
 import { CUBBIES, STORE } from "./cubbies.js";
+import { VOICES } from "./voices.js";
 
 const byId = Object.fromEntries(CUBBIES.map((c) => [c.id, c]));
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -97,9 +98,22 @@ function finish() {
   caption.querySelectorAll(".is-on").forEach((w) => w.classList.remove("is-on"));
 }
 
+// Recorded cubbie voices (warm and natural); the browser voice is only a fallback.
+const storyAudio = new Audio();
+storyAudio.preload = "auto";
+const helloAudio = new Audio();
+let audioFrame = 0;
+
+function stopAudio() {
+  cancelAnimationFrame(audioFrame);
+  storyAudio.pause();
+  storyAudio.onended = storyAudio.onplaying = null;
+}
+
 function stopStory() {
   playToken++;
   if (synth) synth.cancel();
+  stopAudio();
   finish();
 }
 
@@ -126,7 +140,28 @@ function playStory(id) {
   status.textContent = `${c.name} is telling a story: ${c.line}`;
   sparkle();
 
-  // Speak inside the user gesture so iOS allows it.
+  // Start the recorded voice inside the user gesture so phones allow it.
+  stopAudio();
+  helloAudio.pause();
+  const rec = VOICES[id]?.story;
+  if (rec) {
+    storyAudio.src = rec.src;
+    storyAudio.currentTime = 0;
+    const follow = () => {
+      if (!live()) return;
+      const t = storyAudio.currentTime;
+      highlight(words, rec.words.findLastIndex((start) => start <= t + 0.04));
+      if (!storyAudio.paused && !storyAudio.ended) audioFrame = requestAnimationFrame(follow);
+    };
+    storyAudio.onplaying = () => { cancelAnimationFrame(audioFrame); audioFrame = requestAnimationFrame(follow); };
+    storyAudio.onended = () => { if (live()) finish(); };
+    storyAudio.play().catch(() => { if (live()) speakWithBrowser(c, words, token, live); });
+    return;
+  }
+  speakWithBrowser(c, words, token, live);
+}
+
+function speakWithBrowser(c, words, token, live) {
   let boundaryWorks = false;
   if (synth) {
     const u = new SpeechSynthesisUtterance(c.line);
@@ -329,7 +364,7 @@ shelf.addEventListener("click", (e) => {
 
 // Stop talking when the stage scrolls away or the tab is hidden.
 new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) stopStory(); }).observe($("#try"));
-document.addEventListener("visibilitychange", () => { if (document.hidden) stopStory(); });
+document.addEventListener("visibilitychange", () => { if (document.hidden) { stopStory(); helloAudio.pause(); } });
 
 /* ---------- Collection shelf + tray ---------- */
 const KEY = "lc-shelf";
@@ -343,6 +378,7 @@ function renderTray() {
   const list = CUBBIES.filter((c) => picked.has(c.id));
   document.querySelectorAll(".pick").forEach((b) =>
     b.setAttribute("aria-pressed", String("all" in b.dataset ? picked.size === CUBBIES.length : picked.has(b.dataset.id))));
+  document.dispatchEvent(new Event("shelfchange"));
   tray.hidden = list.length === 0;
   if (!list.length) return;
   $("#tray-faces").replaceChildren(...list.map((c) => {
@@ -417,8 +453,18 @@ document.addEventListener("click", (e) => {
   el.classList.add("hop", "talking");
   clearTimeout(el._t);
   el._t = setTimeout(() => el.classList.remove("talking"), 1800);
-  pop(0.9 + Math.random() * 0.4);
   status.textContent = el.dataset.say;
+  // Say it out loud in the cubbie voice (a little pop if the clip can't play).
+  const [cid, clip] = (el.dataset.voice || "").split(":");
+  const rec = VOICES[cid]?.[clip];
+  if (rec) {
+    helloAudio.pause();
+    helloAudio.src = rec.src;
+    helloAudio.currentTime = 0;
+    helloAudio.play().catch(() => pop(0.9 + Math.random() * 0.4));
+  } else {
+    pop(0.9 + Math.random() * 0.4);
+  }
 });
 
 /* ---------- Headline letters bounce when touched ---------- */
@@ -453,3 +499,101 @@ document.querySelector("#cubbies").addEventListener("click", (e) => {
   const btn = e.target.closest(".pick");
   if (btn && btn.getAttribute("aria-pressed") === "true") { petals(btn); pop(1.3); }
 });
+
+/* ---------- Product section (where ad visitors land) ---------- */
+const pdp = {
+  main: $("#pdp-main"), img: $("#pdp-img"), label: $("#pdp-main-label"), stage: $("#pdp-stage"),
+  thumbs: [...document.querySelectorAll(".pdp__thumb")], name: $("#pdp-name"), values: $("#pdp-values"),
+  price: $("#pdp-price"), about: $("#pdp-about"), aboutName: $("#pdp-about-name"),
+  buy: $("#pdp-buy"), shelf: $("#pdp-shelf"), qty: $("#pdp-qty"),
+};
+let pdpId = CUBBIES[0].id;
+let pdpSlide = 0;
+let pdpQty = 1;
+const photoAlt = (c, n) => c.photoAlts[n - 1].replaceAll("{n}", c.name);
+
+function pdpSyncBuy() {
+  const c = byId[pdpId];
+  pdp.qty.textContent = pdpQty;
+  pdp.buy.href = `${STORE}/cart/${c.variant}:${pdpQty}`;
+  pdp.shelf.setAttribute("aria-pressed", String(picked.has(pdpId)));
+  pdp.shelf.textContent = picked.has(pdpId) ? "On your shelf" : "Add to shelf";
+}
+
+function showSlide(n) {
+  const c = byId[pdpId];
+  pdpSlide = n;
+  const cutout = n === 0;
+  pdp.main.classList.toggle("is-cutout", cutout);
+  if (cutout) {
+    pdp.img.src = `assets/img/${c.id}-480.webp`;
+    pdp.img.alt = `${c.name} cubbie toy`;
+    pdp.main.dataset.say = c.say;
+    pdp.main.dataset.voice = `${c.id}:hello`;
+    pdp.label.textContent = `Say hi to ${c.name}`;
+  } else {
+    pdp.img.src = `assets/img/pdp/${c.id}-${n}.webp`;
+    pdp.img.alt = photoAlt(c, n);
+    delete pdp.main.dataset.say;
+    delete pdp.main.dataset.voice;
+    pdp.main.classList.remove("talking");
+    pdp.label.textContent = "Next photo";
+  }
+  pdp.thumbs.forEach((t) => t.setAttribute("aria-pressed", String(Number(t.dataset.slide) === n)));
+  pdp.main.classList.remove("swap");
+  void pdp.main.offsetWidth;
+  pdp.main.classList.add("swap");
+}
+
+function selectCubbie(id, { speak = false, updateUrl = true } = {}) {
+  const c = byId[id];
+  if (!c) return;
+  pdpId = id;
+  pdp.stage.style.setProperty("--world", c.world);
+  pdp.name.textContent = c.name;
+  pdp.aboutName.textContent = c.name;
+  pdp.values.textContent = c.values;
+  pdp.price.textContent = rupees(c.price);
+  pdp.about.textContent = c.about;
+  pdp.thumbs.forEach((t) => {
+    const n = Number(t.dataset.slide);
+    const img = t.querySelector("img");
+    img.src = n === 0 ? `assets/img/${c.id}-300.webp` : `assets/img/pdp/${c.id}-${n}-t.webp`;
+    img.alt = n === 0 ? `${c.name} cubbie` : photoAlt(c, n);
+    if (n === 0) img.style.background = c.world;
+  });
+  const radio = document.querySelector(`.pdp__pick input[value="${id}"]`);
+  if (radio) radio.checked = true;
+  showSlide(0);
+  pdpSyncBuy();
+  if (updateUrl) {
+    const url = new URL(location.href);
+    url.searchParams.set("cubbie", id);
+    history.replaceState(null, "", url);
+  }
+  if (speak) pdp.main.click(); // says hello in the cubbie voice
+}
+
+pdp.thumbs.forEach((t) => t.addEventListener("click", () => showSlide(Number(t.dataset.slide))));
+pdp.main.addEventListener("click", () => { if (!pdp.main.classList.contains("is-cutout")) showSlide((pdpSlide + 1) % 5); });
+document.querySelector(".pdp__pick").addEventListener("change", (e) => selectCubbie(e.target.value, { speak: true }));
+document.querySelectorAll(".qty__btn").forEach((b) => b.addEventListener("click", () => {
+  pdpQty = Math.min(10, Math.max(1, pdpQty + Number(b.dataset.step)));
+  pdpSyncBuy();
+}));
+pdp.shelf.addEventListener("click", () => {
+  const adding = !picked.has(pdpId);
+  adding ? picked.add(pdpId) : picked.delete(pdpId);
+  try { localStorage.setItem(KEY, JSON.stringify([...picked])); } catch {}
+  renderTray();
+  if (adding) { petals(pdp.shelf); pop(1.3); }
+});
+document.addEventListener("shelfchange", pdpSyncBuy);
+
+// Ads can open the page on a specific cubbie: ?cubbie=hanuman (id, product handle or name)
+{
+  const want = (new URLSearchParams(location.search).get("cubbie") || "").toLowerCase().replace(/[^a-z]/g, "");
+  const match = want && CUBBIES.find((c) => [c.id, c.handle, c.name].some((v) => v.toLowerCase().replace(/[^a-z]/g, "") === want));
+  if (match) selectCubbie(match.id, { updateUrl: false });
+  else pdpSyncBuy();
+}
