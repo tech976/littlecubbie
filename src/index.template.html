@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en-IN" data-sky="morning">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Little Cubbie | Tap a toy, hear a story</title>
+  <meta name="description" content="Little Cubbie story toys have a tiny chip inside. Tap Lord Ganesh, Hanuman, Birbal or friends on your phone and they tell your child 30+ stories, songs and games. ₹750, ages 3+.">
+  <meta name="theme-color" content="#9ad8ff">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Little Cubbie">
+  <meta property="og:title" content="Tap a toy. Hear a story. | Little Cubbie">
+  <meta property="og:description" content="Story toys with a chip inside. Tap a cubbie on your phone and Ganesh, Hanuman or Birbal starts telling your child a story.">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+  {{FONTS}}
+  <link rel="preload" as="image" href="assets/video/cubbie-hero-poster.webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- The sky: changes from morning to bedtime as you scroll -->
+  <div class="sky" aria-hidden="true">
+    <div class="sky__layer" data-k="morning"></div>
+    <div class="sky__layer" data-k="noon"></div>
+    <div class="sky__layer" data-k="golden"></div>
+    <div class="sky__layer" data-k="sunset"></div>
+    <div class="sky__layer" data-k="dusk"></div>
+    <div class="sky__layer" data-k="night"></div>
+    <div class="stars">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:8%;--y:14%;--s:.5;--d:0s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:22%;--y:38%;--s:.32;--d:.7s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:38%;--y:9%;--s:.4;--d:1.4s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:57%;--y:26%;--s:.28;--d:.3s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:71%;--y:12%;--s:.46;--d:1.1s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:88%;--y:34%;--s:.36;--d:1.8s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:93%;--y:7%;--s:.3;--d:.5s">
+      <img src="assets/img/world/star.webp" alt="" width="120" height="116" style="--x:48%;--y:48%;--s:.24;--d:2.1s">
+    </div>
+    <img class="sun" src="assets/img/world/sun.webp" alt="" width="360" height="356">
+    <img class="moon" src="assets/img/world/moon.webp" alt="" width="360" height="405">
+    <div class="clouds">
+      <img class="cloud" src="assets/img/world/cloud-a.webp" alt="" width="700" height="326" style="--y:14%;--w:clamp(180px,22vw,360px);--t:140s;--o:-20s">
+      <img class="cloud" src="assets/img/world/cloud-b.webp" alt="" width="700" height="212" style="--y:40%;--w:clamp(220px,28vw,420px);--t:180s;--o:-110s">
+      <img class="cloud" src="assets/img/world/cloud-a.webp" alt="" width="700" height="326" style="--y:66%;--w:clamp(140px,16vw,260px);--t:120s;--o:-70s">
+      <img class="cloud" src="assets/img/world/cloud-b.webp" alt="" width="700" height="212" style="--y:84%;--w:clamp(200px,24vw,380px);--t:200s;--o:-150s">
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav-pill" aria-label="Main">
+        <a class="logo" href="#top" aria-label="Little Cubbie home"><img src="assets/img/logo.webp" alt="Little Cubbie" width="200" height="168"></a>
+        <span class="nav-links">
+          <a href="#try">Try it</a>
+          <a href="#cubbies">Cubbies</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+        </span>
+        <a class="btn btn--small" href="#cubbies">Shop cubbies</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero screen" id="top" data-sky="morning" aria-labelledby="hero-title">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="note note--hero" aria-hidden="true">psst… they really talk!<img src="assets/img/doodle/arrow.webp" alt="" width="200" height="84"></p>
+          <h1 id="hero-title">
+            <span class="visually-hidden">Tap a toy. Hear a story.</span>
+            {{HEADLINE}}
+          </h1>
+          <p class="hero__lede">Every Little Cubbie has a tiny chip inside. <strong>Set Ganesh, Hanuman or Birbal on your phone</strong> and they start telling your child stories, songs and riddles.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cubbies">Choose a cubbie</a>
+            <a class="btn btn--white" href="#try">Try it here</a>
+          </div>
+          <ul class="chips" aria-label="At a glance">
+            <li>₹750 each</li><li>Ages 3+</li><li>Phone or tablet</li>
+          </ul>
+        </div>
+
+        <div class="screen-frame">
+          <div class="screen-frame__inner">
+            <video id="hero-video" width="1280" height="720" autoplay muted loop playsinline preload="auto"
+                   poster="assets/video/cubbie-hero-poster.webp"
+                   aria-label="A Lord Ganesh cubbie toy hops onto a smartphone and sparkles appear as the story begins">
+              <source src="assets/video/cubbie-hero.webm" type="video/webm">
+              <source src="assets/video/cubbie-hero.mp4" type="video/mp4">
+            </video>
+            <button class="sound-btn" id="sound-btn" type="button" aria-pressed="false">
+              <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+              <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+              <span>Sound</span>
+            </button>
+          </div>
+          <p class="sticker" aria-hidden="true">30+ stories in every cubbie</p>
+        </div>
+      </div>
+
+      <div class="land land--day">
+        <img class="land__art" src="assets/img/world/hills.webp" srcset="assets/img/world/hills-800.webp 800w, assets/img/world/hills.webp 1600w" sizes="100vw" alt="" width="1600" height="533">
+        {{HERO_BUDDIES}}
+      </div>
+    </section>
+
+    <!-- Story stage: interactive demo -->
+    <section class="stage-wrap screen" id="try" data-sky="morning" aria-labelledby="try-title">
+      <div class="wrap">
+        <div class="stage">
+          <div class="stage__grid">
+            <div class="section__head stage__head">
+              <h2 id="try-title">Go on, try it!</h2>
+              <p>Drag a cubbie onto the phone, or just tap one. Turn your sound up.</p>
+            </div>
+            <div class="stage__shelf">
+              <p class="note note--drag" aria-hidden="true">drag me onto the phone!<img src="assets/img/doodle/arrow.webp" alt="" width="200" height="84"></p>
+              <ul class="shelf" id="shelf" aria-label="Pick a cubbie to play">
+                {{SHELF}}
+              </ul>
+            </div>
+
+            <div class="stage__phone-col">
+              <div class="phone" id="phone" role="group" aria-label="Phone demo">
+                <div class="burst" id="burst" aria-hidden="true"></div>
+                <div class="phone__drop" aria-hidden="true">Let go!</div>
+                <div class="phone__screen">
+                  <div class="phone__status" aria-hidden="true">
+                    <span>9:41</span>
+                    <span class="phone__island"></span>
+                    <span class="phone__icons"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor"/><path d="M24 4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></span>
+                  </div>
+                  <p class="phone__app">Little Cubbie Playtime</p>
+                  <div class="phone__idle">
+                    <div class="rings" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9M12 5a9.5 9.5 0 0 1 0 14M5 10a2.5 2.5 0 0 1 0 4"/></svg>
+                    </div>
+                    <p>Bring a cubbie close to wake it up</p>
+                  </div>
+                  <div class="phone__story">
+                    <div class="phone__hero"><img id="phone-img" src="assets/img/ganesh-480.webp" alt="" width="600" height="720" loading="lazy"></div>
+                    <p class="phone__title" id="phone-title"></p>
+                    <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                    <p class="phone__caption" id="phone-caption"></p>
+                    <div class="phone__controls">
+                      <button type="button" id="replay">Play again</button>
+                      <button type="button" id="stop">Stop</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="stage__fine">A quick sample voice from your browser. Real cubbies unlock full stories, songs and games in the app.</p>
+              <p class="visually-hidden" aria-live="polite" id="stage-status"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collection -->
+    <section class="section screen collection" id="cubbies" data-sky="noon" aria-labelledby="cubbies-title">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="cubbies-title">Who's coming home first?</h2>
+          <p>Seven storytellers from India's best-loved tales. Each one unlocks its own world of 30+ stories, songs and games. Tap one to say hello.</p>
+          <p class="note note--collect" aria-hidden="true">collect all 7!<img src="assets/img/doodle/crown.webp" alt="" width="200" height="171"></p>
+        </div>
+        <ul class="gang" id="gang">
+          {{GANG}}
+        </ul>
+        {{GANG_ALL}}
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section screen" id="how" data-sky="golden" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section__head center">
+          <h2 id="how-title">How the magic works</h2>
+          <p>No buttons for little fingers to figure out. If they can put a toy down, they can start a story.</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step__art">
+              <img class="step__cloud" src="assets/img/world/cloud-a.webp" alt="" width="700" height="326" loading="lazy">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="18" y="6" width="28" height="52" rx="7" fill="#243eff"/><rect x="22" y="12" width="20" height="36" rx="3" fill="#d6e9ff"/><path d="M32 22v14m-6-6 6 6 6-6" stroke="#243eff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="53" r="2" fill="#d6e9ff"/></svg>
+            </div>
+            <h3>Get the app</h3>
+            <p>Download Little Cubbie Playtime on your phone or tablet.</p>
+            <div class="stores">
+              <a class="store" href="https://apps.apple.com/in/app/little-cubbie-playtime/id6759790263" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1-2.8-4.2ZM14 5.2c.7-.8 1.2-2 1-3.2-1 .1-2.2.7-3 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.3-.6 3-1.4Z"/></svg>
+                App Store
+              </a>
+              <a class="store" href="https://play.google.com/store/apps/details?id=com.digitrix.cubbieplaytime" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2.8v18.4c0 .5.5.8 1 .6l10.6-9.2L5 3.2c-.5-.3-1 0-1 .6Zm12.9 7.6L14 13.2l2.9 2.6 3.2-1.8c.9-.5.9-1.6 0-2.1l-3.2-1.5Zm-1.3-.7L6.8 2.9l8.9 7.6Zm0 4.6-8.8 6.8 8.8-6.8Z"/></svg>
+                Google Play
+              </a>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step__art">
+              <img class="step__cloud" src="assets/img/world/cloud-b.webp" alt="" width="700" height="212" loading="lazy">
+              <img class="step__toy" src="assets/img/ganesh-300.webp" alt="" width="300" height="360" loading="lazy">
+            </div>
+            <h3>Tap the cubbie</h3>
+            <p>Hold the toy against the phone. The chip inside tells the app who has arrived.</p>
+          </li>
+          <li class="step">
+            <div class="step__art">
+              <img class="step__cloud" src="assets/img/world/cloud-a.webp" alt="" width="700" height="326" loading="lazy">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M10 26h8l12-10v32L18 38h-8z" fill="#ff6a22"/><path d="M38 24a10 10 0 0 1 0 16M44 18a18 18 0 0 1 0 28" stroke="#243eff" stroke-width="4.5" stroke-linecap="round"/><path d="m52 8 1.6 3.4L57 13l-3.4 1.6L52 18l-1.6-3.4L47 13l3.4-1.6z" fill="#ffb627"/></svg>
+            </div>
+            <h3>Listen together</h3>
+            <p>Stories, songs and games play through the phone's speaker, gently paced for little ears.</p>
+          </li>
+        </ol>
+        <div class="box-note">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="16" cy="14" r="7" fill="#b7d6ff"/><circle cx="48" cy="14" r="7" fill="#b7d6ff"/><rect x="8" y="14" width="48" height="44" rx="12" fill="#243eff"/><g fill="#d6e9ff"><circle cx="24" cy="32" r="2"/><circle cx="32" cy="32" r="2"/><circle cx="40" cy="32" r="2"/><circle cx="24" cy="40" r="2"/><circle cx="32" cy="40" r="2"/><circle cx="40" cy="40" r="2"/></g></svg>
+          <p><strong>Want zero screens?</strong> The same cubbies also play on the Cubbie Box, a little speaker your child runs all by themselves. <a href="https://littlecubbie.com/pages/how-it-works#cubbie-box">See the Cubbie Box</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grown-ups -->
+    <section class="section screen grownups" data-sky="sunset" aria-labelledby="grownups-title">
+      <div class="wrap">
+        <div class="letter">
+          <span class="tape tape--l" aria-hidden="true"></span><span class="tape tape--r" aria-hidden="true"></span>
+          <div class="letter__grid">
+            <div class="grownups__intro">
+              <h2 id="grownups-title">A note for grown-ups</h2>
+              <p>Not all screen time is equal. Cubbie stories are slow, warm and written for small ears, so the phone becomes a storyteller instead of a scroll.</p>
+              <ul class="moments" aria-label="Good for">
+                <li>Bedtime</li><li>Mealtime</li><li>School mornings</li><li>Car rides</li><li>Flights</li><li>Holidays</li>
+              </ul>
+              <p class="signoff" aria-hidden="true">With love, the Little Cubbie team</p>
+            </div>
+            <ul class="promises">
+              <li>
+                <svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><circle cx="26" cy="26" r="26" fill="#ffb627"/><path d="M14 20 26 14l12 6-12 6z" fill="#15124a"/><path d="M19 23v7c0 2 3.5 4 7 4s7-2 7-4v-7" stroke="#15124a" stroke-width="3"/></svg>
+                <div><h3>Written by teachers</h3><p>Every story, song and game is made with educators for children aged 3 and up.</p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><circle cx="26" cy="26" r="26" fill="#5cc98a"/><path d="M33 16a11 11 0 1 0 3 15 9 9 0 0 1-3-15Z" fill="#15124a"/></svg>
+                <div><h3>No flashing, no endless feed</h3><p>Gently paced and low on stimulation, without addictive-style graphics or autoplaying videos.</p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><circle cx="26" cy="26" r="26" fill="#ff9bc4"/><path d="M14 17c4-2 8-2 12 1v18c-4-3-8-3-12-1zM38 17c-4-2-8-2-12 1v18c4-3 8-3 12-1z" fill="#15124a"/></svg>
+                <div><h3>The stories we grew up with</h3><p>Indian scriptures and folktales full of wit and wonder, retold for the children growing up now.</p></div>
+              </li>
+              <li>
+                <svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><circle cx="26" cy="26" r="26" fill="#6bb8ff"/><rect x="13" y="19" width="26" height="16" rx="5" fill="#15124a"/><circle cx="19" cy="37" r="3.5" fill="#15124a"/><circle cx="33" cy="37" r="3.5" fill="#15124a"/><path d="M17 19l3-5h12l3 5" stroke="#15124a" stroke-width="3" stroke-linejoin="round"/></svg>
+                <div><h3>Goes wherever you go</h3><p>No charging, no cables. Pop a cubbie in your bag and story time is ready at Nani's house or 30,000 feet up.</p></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section screen faq" id="faq" data-sky="dusk" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section__head center"><h2 id="faq-title">Questions parents ask</h2></div>
+        <div class="faq__list">
+          <details>
+            <summary>Which phones and tablets work?</summary>
+            <p>Little Cubbie Playtime runs on compatible phones and tablets that can read NFC, the same tap technology used for contactless payments. The <a href="https://littlecubbie.com/pages/quick-set-up-guide">quick setup guide</a> shows exactly what you need.</p>
+          </details>
+          <details>
+            <summary>Do I need the Cubbie Box too?</summary>
+            <p>No. A cubbie and the Little Cubbie Playtime app are all you need. The Cubbie Box is an optional speaker for completely screen-free play.</p>
+          </details>
+          <details>
+            <summary>What does one cubbie unlock?</summary>
+            <p>30+ stories, songs, games and activities about that character, ready the moment the toy touches your device.</p>
+          </details>
+          <details>
+            <summary>Does the toy need batteries or charging?</summary>
+            <p>No. Each cubbie is a sturdy rubber figure with its chip sealed inside. The phone powers the chip when they touch, so there is nothing to charge or plug in.</p>
+          </details>
+          <details>
+            <summary>What age is it for?</summary>
+            <p>Ages 3 and up. The content is written by teachers and paced for little listeners, so it works for bedtime as well as busy mornings.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Finale: bedtime -->
+    <section class="finale screen" id="bedtime" data-sky="night" aria-labelledby="finale-title">
+      <div class="wrap finale__copy">
+        <h2 id="finale-title">Tonight's story is one tap away</h2>
+        <p>Pick a cubbie today, and bedtime has a brand-new storyteller.</p>
+        <a class="btn btn--sun" href="#cubbies">Choose a cubbie</a>
+      </div>
+      <div class="land land--night">
+        <img class="land__art" src="assets/img/world/hills.webp" srcset="assets/img/world/hills-800.webp 800w, assets/img/world/hills.webp 1600w" sizes="100vw" alt="" width="1600" height="533" loading="lazy">
+        {{NIGHT_BUDDIES}}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" data-sky="night">
+    <div class="wrap">
+      <img src="assets/img/logo.webp" alt="Little Cubbie" width="200" height="168" loading="lazy">
+      <nav aria-label="Footer">
+        <a href="https://littlecubbie.com/pages/shop">Shop</a>
+        <a href="https://littlecubbie.com/pages/how-it-works">How it works</a>
+        <a href="https://littlecubbie.com/pages/app">Our apps</a>
+        <a href="https://littlecubbie.com/pages/faq">FAQ</a>
+        <a href="mailto:support@littlecubbie.com">support@littlecubbie.com</a>
+      </nav>
+      <p>© 2026 Little Cubbie</p>
+    </div>
+  </footer>
+
+  <aside class="tray" id="tray" hidden aria-label="Your cubbie shelf">
+    <div class="tray__faces" id="tray-faces"></div>
+    <div class="tray__text">
+      <p class="tray__count" id="tray-count"></p>
+      <div class="tray__meter" id="tray-meter" style="--p:0" role="progressbar" aria-label="Cubbies collected" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><i></i></div>
+      <p class="tray__sub" id="tray-sub"></p>
+    </div>
+    <a class="btn btn--sun btn--small" id="tray-checkout" href="https://littlecubbie.com/pages/shop">Check out</a>
+  </aside>
+
+  <!-- Wobbly crayon edges for drawn lines -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </svg>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
