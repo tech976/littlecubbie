@@ -63,7 +63,10 @@ const gang = CUBBIES.map((c) => `
               <p>${esc(c.values)}</p>
               <div class="pal__row">
                 <span class="pal__price">₹${c.price}</span>
-                <a class="pick" href="${STORE}/cart/${c.variant}:1" aria-label="Buy now: ${esc(c.name)}">Buy now</a>
+                <span class="pal__ctas">
+                  <a class="pick" href="${STORE}/cart/add?id=${c.variant}&amp;quantity=1" data-add="${c.id}" aria-label="Add to cart: ${esc(c.name)}">Add to cart</a>
+                  <a class="pick pick--buy" href="${STORE}/cart/${c.variant}:1" aria-label="Buy now: ${esc(c.name)}">Buy now</a>
+                </span>
               </div>
               <a class="pal__details" href="${STORE}/products/${c.handle}">See <span class="visually-hidden">${esc(c.name)}'s </span>stories</a>
             </div>
@@ -73,7 +76,10 @@ const gangAll = `<div class="gang-all">
           <div class="gang-all__faces" aria-hidden="true">${CUBBIES.map((c) => `<img src="assets/img/${c.id}-300.webp" alt="" width="300" height="360" loading="lazy" style="--world:${c.world}">`).join("")}</div>
           <p class="gang-all__text"><strong>Bring home the whole gang.</strong> All 7 cubbies, 210+ stories, songs and games.</p>
           <span class="pal__price">₹${(CUBBIES.reduce((s, c) => s + c.price, 0)).toLocaleString("en-IN")}</span>
-          <a class="pick pick--all" href="${STORE}/cart/${CUBBIES.map((c) => `${c.variant}:1`).join(",")}">Buy all 7</a>
+          <span class="gang-all__ctas">
+            <a class="pick" data-add="all" href="${STORE}/cart/add?${CUBBIES.map((c) => `items%5B%5D%5Bid%5D=${c.variant}&amp;items%5B%5D%5Bquantity%5D=1`).join("&amp;")}">Add all 7 to cart</a>
+            <a class="pick pick--buy" href="${STORE}/cart/${CUBBIES.map((c) => `${c.variant}:1`).join(",")}">Buy all 7</a>
+          </span>
         </div>`;
 
 // Product section: Ganesh by default; ?cubbie=<id> switches it in the browser.
@@ -105,6 +111,7 @@ const scalars = {
   PDP_ID: pdp.id, PDP_NAME: esc(pdp.name), PDP_SAY: esc(pdp.say), PDP_WORLD: pdp.world,
   PDP_VALUES: esc(pdp.values), PDP_PRICE: String(pdp.price), PDP_ABOUT: esc(pdp.about),
   PDP_CART: `${STORE}/cart/${pdp.variant}:1`,
+  PDP_ADD: `${STORE}/cart/add?id=${pdp.variant}&amp;quantity=1`,
 };
 for (const [k, v] of Object.entries(scalars)) html = html.replaceAll(`{{${k}}}`, v);
 for (const [k, v] of Object.entries(parts)) {

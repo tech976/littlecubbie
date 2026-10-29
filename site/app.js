@@ -459,7 +459,7 @@ const pdp = {
   main: $("#pdp-main"), img: $("#pdp-img"), label: $("#pdp-main-label"), stage: $("#pdp-stage"),
   thumbs: [...document.querySelectorAll(".pdp__thumb")], name: $("#pdp-name"), values: $("#pdp-values"),
   price: $("#pdp-price"), about: $("#pdp-about"), aboutName: $("#pdp-about-name"),
-  buy: $("#pdp-buy"), qty: $("#pdp-qty"),
+  buy: $("#pdp-buy"), cart: $("#pdp-cart"), qty: $("#pdp-qty"),
 };
 let pdpId = CUBBIES[0].id;
 let pdpSlide = 0;
@@ -470,6 +470,7 @@ function pdpSyncBuy() {
   const c = byId[pdpId];
   pdp.qty.textContent = pdpQty;
   pdp.buy.href = `${STORE}/cart/${c.variant}:${pdpQty}`;
+  pdp.cart.href = `${STORE}/cart/add?id=${c.variant}&quantity=${pdpQty}`;
 }
 
 function showSlide(n) {
@@ -541,3 +542,79 @@ document.querySelectorAll(".qty__btn").forEach((b) => b.addEventListener("click"
   if (match) selectCubbie(match.id, { updateUrl: false });
   else pdpSyncBuy();
 }
+
+/* ---------- Cart bar: slides up when something is added ---------- */
+const CART_KEY = "lc-cart";
+const cart = new Map(); // id -> quantity
+try { for (const [id, q] of JSON.parse(localStorage.getItem(CART_KEY) || "[]")) if (byId[id] && q > 0) cart.set(id, q); } catch {}
+const tray = $("#tray");
+
+function renderCart({ bump = false } = {}) {
+  const items = CUBBIES.filter((c) => cart.has(c.id));
+  tray.hidden = items.length === 0;
+  document.body.classList.toggle("has-cart", items.length > 0);
+  if (!items.length) return;
+  const count = items.reduce((n, c) => n + cart.get(c.id), 0);
+  const total = items.reduce((n, c) => n + c.price * cart.get(c.id), 0);
+  $("#tray-faces").replaceChildren(...items.map((c) => {
+    const img = new Image(38, 38);
+    img.src = `assets/img/${c.id}-300.webp`;
+    img.alt = "";
+    img.style.setProperty("--world", c.world);
+    return img;
+  }));
+  $("#tray-count").textContent = `${count} ${count === 1 ? "cubbie" : "cubbies"} in your cart`;
+  $("#tray-sub").textContent = items.length === CUBBIES.length
+    ? `The whole gang is coming home! ${rupees(total)}`
+    : `${rupees(total)} so far. Collect all ${CUBBIES.length}!`;
+  const meter = $("#tray-meter");
+  meter.style.setProperty("--p", items.length / CUBBIES.length);
+  meter.setAttribute("aria-valuenow", items.length);
+  $("#tray-checkout").href = `${STORE}/cart/${items.map((c) => `${c.variant}:${cart.get(c.id)}`).join(",")}`;
+  if (bump && motionOK()) {
+    tray.classList.remove("bump");
+    void tray.offsetWidth;
+    tray.classList.add("bump");
+  }
+}
+
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify([...cart])); } catch {}
+}
+
+function addToCart(ids, qty, button) {
+  for (const id of ids) cart.set(id, (cart.get(id) || 0) + qty);
+  saveCart();
+  const wasHidden = tray.hidden;
+  renderCart({ bump: !wasHidden });
+  petals(button);
+  pop(1.3);
+  const names = ids.length === CUBBIES.length ? "All 7 cubbies" : ids.map((id) => byId[id].name).join(", ");
+  $("#cart-status").textContent = `${names} added to your cart.`;
+  // Brief "Added!" on the button itself
+  const label = button.textContent;
+  if (!button.dataset.label) button.dataset.label = label;
+  button.textContent = "Added!";
+  button.classList.add("is-added");
+  clearTimeout(button._t);
+  button._t = setTimeout(() => { button.textContent = button.dataset.label; button.classList.remove("is-added"); }, 1300);
+}
+
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("[data-add]");
+  if (!a) return;
+  e.preventDefault(); // stay on the page; the cart bar handles checkout
+  const what = a.dataset.add;
+  if (what === "pdp") addToCart([pdpId], pdpQty, a);
+  else if (what === "all") addToCart(CUBBIES.map((c) => c.id), 1, a);
+  else addToCart([what], 1, a);
+});
+
+$("#tray-close").addEventListener("click", () => {
+  cart.clear();
+  saveCart();
+  renderCart();
+  $("#cart-status").textContent = "Your cart is empty.";
+});
+
+renderCart();
