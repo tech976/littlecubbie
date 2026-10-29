@@ -366,51 +366,9 @@ shelf.addEventListener("click", (e) => {
 new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) stopStory(); }).observe($("#try"));
 document.addEventListener("visibilitychange", () => { if (document.hidden) { stopStory(); helloAudio.pause(); } });
 
-/* ---------- Collection shelf + tray ---------- */
-const KEY = "lc-shelf";
-let picked = new Set();
-try { picked = new Set(JSON.parse(localStorage.getItem(KEY) || "[]").filter((id) => byId[id])); } catch {}
-
-const tray = $("#tray");
+/* ---------- Collection ---------- */
 const rupees = (n) => `₹${n.toLocaleString("en-IN")}`;
-
-function renderTray() {
-  const list = CUBBIES.filter((c) => picked.has(c.id));
-  document.querySelectorAll(".pick").forEach((b) =>
-    b.setAttribute("aria-pressed", String("all" in b.dataset ? picked.size === CUBBIES.length : picked.has(b.dataset.id))));
-  document.dispatchEvent(new Event("shelfchange"));
-  tray.hidden = list.length === 0;
-  if (!list.length) return;
-  $("#tray-faces").replaceChildren(...list.map((c) => {
-    const img = new Image(38, 38);
-    img.src = `assets/img/${c.id}-300.webp`;
-    img.alt = "";
-    img.style.setProperty("--world", c.world);
-    return img;
-  }));
-  const total = list.reduce((sum, c) => sum + c.price, 0);
-  $("#tray-count").textContent = `${list.length} of ${CUBBIES.length} on their shelf`;
-  $("#tray-sub").textContent =
-    list.length === CUBBIES.length ? `The whole gang is coming home! ${rupees(total)}` : `${rupees(total)} so far. Collect all ${CUBBIES.length}!`;
-  const meter = $("#tray-meter");
-  meter.style.setProperty("--p", list.length / CUBBIES.length);
-  meter.setAttribute("aria-valuenow", list.length);
-  $("#tray-checkout").href = `${STORE}/cart/${list.map((c) => `${c.variant}:1`).join(",")}`;
-}
-
-document.querySelector("#cubbies").addEventListener("click", (e) => {
-  const btn = e.target.closest(".pick");
-  if (!btn) return;
-  if ("all" in btn.dataset) {
-    picked = picked.size === CUBBIES.length ? new Set() : new Set(CUBBIES.map((c) => c.id));
-  } else {
-    const id = btn.dataset.id;
-    picked.has(id) ? picked.delete(id) : picked.add(id);
-  }
-  try { localStorage.setItem(KEY, JSON.stringify([...picked])); } catch {}
-  renderTray();
-});
-renderTray();
+try { localStorage.removeItem("lc-shelf"); } catch {} // the old shelf tray is retired
 
 /* ---------- The sky: morning to bedtime as you scroll ---------- */
 const root = document.documentElement;
@@ -495,17 +453,13 @@ function petals(from) {
     ], { duration: 900 + Math.random() * 300, easing: "cubic-bezier(.2,.8,.4,1)" }).finished.then(() => p.remove());
   }
 }
-document.querySelector("#cubbies").addEventListener("click", (e) => {
-  const btn = e.target.closest(".pick");
-  if (btn && btn.getAttribute("aria-pressed") === "true") { petals(btn); pop(1.3); }
-});
 
 /* ---------- Product section (where ad visitors land) ---------- */
 const pdp = {
   main: $("#pdp-main"), img: $("#pdp-img"), label: $("#pdp-main-label"), stage: $("#pdp-stage"),
   thumbs: [...document.querySelectorAll(".pdp__thumb")], name: $("#pdp-name"), values: $("#pdp-values"),
   price: $("#pdp-price"), about: $("#pdp-about"), aboutName: $("#pdp-about-name"),
-  buy: $("#pdp-buy"), shelf: $("#pdp-shelf"), qty: $("#pdp-qty"),
+  buy: $("#pdp-buy"), qty: $("#pdp-qty"),
 };
 let pdpId = CUBBIES[0].id;
 let pdpSlide = 0;
@@ -516,8 +470,6 @@ function pdpSyncBuy() {
   const c = byId[pdpId];
   pdp.qty.textContent = pdpQty;
   pdp.buy.href = `${STORE}/cart/${c.variant}:${pdpQty}`;
-  pdp.shelf.setAttribute("aria-pressed", String(picked.has(pdpId)));
-  pdp.shelf.textContent = picked.has(pdpId) ? "On your shelf" : "Add to shelf";
 }
 
 function showSlide(n) {
@@ -581,14 +533,6 @@ document.querySelectorAll(".qty__btn").forEach((b) => b.addEventListener("click"
   pdpQty = Math.min(10, Math.max(1, pdpQty + Number(b.dataset.step)));
   pdpSyncBuy();
 }));
-pdp.shelf.addEventListener("click", () => {
-  const adding = !picked.has(pdpId);
-  adding ? picked.add(pdpId) : picked.delete(pdpId);
-  try { localStorage.setItem(KEY, JSON.stringify([...picked])); } catch {}
-  renderTray();
-  if (adding) { petals(pdp.shelf); pop(1.3); }
-});
-document.addEventListener("shelfchange", pdpSyncBuy);
 
 // Ads can open the page on a specific cubbie: ?cubbie=hanuman (id, product handle or name)
 {

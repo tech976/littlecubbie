@@ -549,7 +549,7 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; -webkit-user
 .pal__price { font: 800 var(--step-2)/1 var(--font-display); }
 .pal__details { font-weight: 800; font-size: var(--step--1); margin-top: .5rem; }
 .pick {
-  position: relative; display: inline-flex; align-items: center; gap: .4rem; min-height: 2.75rem; padding: .45rem 1rem;
+  position: relative; display: inline-flex; justify-content: center; text-decoration: none; align-items: center; gap: .4rem; min-height: 2.75rem; padding: .45rem 1rem;
   font: 800 1rem/1 var(--font-display); color: var(--ink); background: #fff; cursor: pointer;
   border: 3px solid var(--ink); border-radius: 999px; transition: background .15s, color .15s, transform .15s;
 }
@@ -832,3 +832,6 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; -webkit-user
   .pdp__title { font-size: 1.75rem; }
   .pdp__info { gap: .5rem; }
 }
+
+.pick:hover { background: var(--ink); color: #fff; }
+.pick--all:hover { background: var(--ink); }

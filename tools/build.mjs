@@ -63,7 +63,7 @@ const gang = CUBBIES.map((c) => `
               <p>${esc(c.values)}</p>
               <div class="pal__row">
                 <span class="pal__price">₹${c.price}</span>
-                <button class="pick" type="button" data-id="${c.id}" aria-pressed="false" aria-label="Add to shelf: ${esc(c.name)}">${icon.plus}${icon.tick}<span>Add to shelf</span></button>
+                <a class="pick" href="${STORE}/cart/${c.variant}:1" aria-label="Buy now: ${esc(c.name)}">Buy now</a>
               </div>
               <a class="pal__details" href="${STORE}/products/${c.handle}">See <span class="visually-hidden">${esc(c.name)}'s </span>stories</a>
             </div>
@@ -73,7 +73,7 @@ const gangAll = `<div class="gang-all">
           <div class="gang-all__faces" aria-hidden="true">${CUBBIES.map((c) => `<img src="assets/img/${c.id}-300.webp" alt="" width="300" height="360" loading="lazy" style="--world:${c.world}">`).join("")}</div>
           <p class="gang-all__text"><strong>Bring home the whole gang.</strong> All 7 cubbies, 210+ stories, songs and games.</p>
           <span class="pal__price">₹${(CUBBIES.reduce((s, c) => s + c.price, 0)).toLocaleString("en-IN")}</span>
-          <button class="pick pick--all" type="button" data-all aria-pressed="false" aria-label="Add all 7 cubbies to shelf">${icon.plus}${icon.tick}<span>Add all 7</span></button>
+          <a class="pick pick--all" href="${STORE}/cart/${CUBBIES.map((c) => `${c.variant}:1`).join(",")}">Buy all 7</a>
         </div>`;
 
 // Product section: Ganesh by default; ?cubbie=<id> switches it in the browser.
