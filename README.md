@@ -16,3 +16,7 @@ npm run serve   # preview at http://127.0.0.1:5180
 
 ## Deploy on Vercel
 Import this repo. `vercel.json` already sets the build command and the `site` output folder.
+
+## Source assets (not used by the live page)
+- `AI video/` – the original AI hero video, Canva vs Codex art comparisons, and cubbie voice samples.
+- `source-assets/` – full-size generated art (clay world, cubbie cutouts) that the site images were made from.

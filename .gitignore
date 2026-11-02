@@ -3,6 +3,5 @@ node_modules/
 .playwright-mcp/
 .pw/
 .vercel/
-# Raw generated art and the original video stay local (large, not needed to deploy)
-source-assets/
-AI video/
+# Codex session logs from image generation (not art)
+source-assets/**/log-*.txt
