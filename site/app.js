@@ -618,3 +618,38 @@ $("#tray-close").addEventListener("click", () => {
 });
 
 renderCart();
+
+/* ---------- Even cubbie shelf on every laptop screen ----------
+   Picks one row of 7 or 4 + 3, whichever gives bigger tiles, and sizes every tile the same. */
+{
+  const shelfEl = document.querySelector("#shelf");
+  const wrap = document.querySelector(".stage__shelf");
+  const desktop = matchMedia("(min-width: 861px)");
+  const fit = () => {
+    if (!desktop.matches) { shelfEl.style.removeProperty("--tile"); document.querySelector(".stage").style.removeProperty("--shelf-w"); delete shelfEl.dataset.rows; return; }
+    const cs = getComputedStyle(shelfEl);
+    const gap = parseFloat(cs.columnGap) || 12;
+    const w = wrap.clientWidth;
+    const stage = document.querySelector(".stage");
+    const sp = parseFloat(getComputedStyle(stage).paddingTop) || 24;
+    const header = document.querySelector(".site-header").offsetHeight;
+    const used = [".stage__head", ".note--drag", ".stage__fine"].reduce((n, sel) => {
+      const el = document.querySelector(sel);
+      const st = getComputedStyle(el);
+      return n + el.offsetHeight + parseFloat(st.marginTop) + parseFloat(st.marginBottom);
+    }, 0);
+    const room = innerHeight - header - 2 * sp - used - 52; // 52: section padding + breathing room
+    const tall = 1.25; // tile height / width
+    const tile7 = Math.min((w - 6 * gap) / 7, room / tall, 150);
+    const tile4 = Math.min((w - 3 * gap) / 4, (room - gap) / (2 * tall), 160);
+    const one = tile7 >= tile4;
+    shelfEl.dataset.rows = one ? "1" : "2";
+    const t = Math.max(56, Math.floor(one ? tile7 : tile4));
+    shelfEl.style.setProperty("--tile", `${t}px`);
+    stage.style.setProperty("--shelf-w", `${one ? 7 * t + 6 * gap : 4 * t + 3 * gap}px`);
+  };
+  new ResizeObserver(fit).observe(wrap);
+  addEventListener("resize", fit);
+  document.fonts?.ready.then(fit);
+  fit();
+}
