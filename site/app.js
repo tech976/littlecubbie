@@ -66,6 +66,7 @@ function sparkle() {
 
 function renderCaption(text) {
   caption.replaceChildren();
+  caption.scrollTop = 0;
   const words = [];
   let index = 0;
   for (const part of text.split(/(\s+)/)) {
@@ -84,6 +85,12 @@ function renderCaption(text) {
 
 function highlight(words, i) {
   words.forEach((w, n) => w.classList.toggle("is-on", n === i));
+  // Long captions scroll inside the phone so the spoken word stays in view.
+  const w = words[i];
+  if (w && caption.scrollHeight > caption.clientHeight + 2) {
+    const target = w.offsetTop - caption.offsetTop - caption.clientHeight / 2 + w.offsetHeight / 2;
+    caption.scrollTo({ top: Math.max(0, target), behavior: motionOK() ? "smooth" : "auto" });
+  }
 }
 
 function clearTimers() {
@@ -405,7 +412,21 @@ document.addEventListener("click", (e) => {
   const el = e.target.closest("[data-say]");
   if (!el) return;
   const bubble = el.querySelector(".bubble");
-  if (bubble) bubble.textContent = el.dataset.say;
+  if (bubble) {
+    bubble.textContent = el.dataset.say;
+    bubble.style.removeProperty("--nudge");
+    // Keep the speech bubble on screen near the page edges
+    requestAnimationFrame(() => {
+      // measure the final size (the pop-in animation scales it while appearing)
+      const r = bubble.getBoundingClientRect();
+      const w = bubble.offsetWidth;
+      const mid = (r.left + r.right) / 2;
+      const left = mid - w / 2, right = mid + w / 2;
+      const pad = 8;
+      const shift = left < pad ? pad - left : right > innerWidth - pad ? innerWidth - pad - right : 0;
+      if (shift) bubble.style.setProperty("--nudge", `${Math.round(shift)}px`);
+    });
+  }
   el.classList.remove("hop");
   void el.offsetWidth;
   el.classList.add("hop", "talking");

@@ -20,3 +20,10 @@ Import this repo. `vercel.json` already sets the build command and the `site` ou
 ## Source assets (not used by the live page)
 - `AI video/` – the original AI hero video, Canva vs Codex art comparisons, and cubbie voice samples.
 - `source-assets/` – full-size generated art (clay world, cubbie cutouts) that the site images were made from.
+
+## Cubbie voices (story previews)
+The page plays short previews cut from the original recordings, never the full stories.
+- Originals go in `Audios/` (git-ignored, never deployed).
+- Run `python tools/make-snippets.py` (needs ffmpeg and `pip install faster-whisper`) to rebuild
+  `site/assets/audio/*.mp3` and `site/voices.js`. Cut points are in `SPEC` at the top of the script;
+  story previews are capped at 26 seconds. Caption text comes from `site/cubbies.js`.

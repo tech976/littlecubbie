@@ -911,3 +911,32 @@ body.has-cart { padding-bottom: 96px; } /* room so the cart bar never hides the 
   .note--drag { margin-right: max(0px, calc(100% - var(--shelf-w, 100%) - 4.5rem)); }
 }
 @media (max-width: 860px) and (max-height: 780px) { .phone { --pw: clamp(120px, calc((100svh - var(--header) - 445px) * .485), 230px); } }
+
+/* Real-voice previews: long captions scroll inside the phone; bubbles stay on screen */
+.phone__caption {
+  flex: 0 1 auto; min-height: 0; overflow: hidden; width: 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 .6em, #000 calc(100% - .6em), transparent);
+  mask-image: linear-gradient(180deg, transparent 0, #000 .6em, #000 calc(100% - .6em), transparent);
+  padding-block: .35em;
+}
+.phone__controls { flex: none; padding-top: .4rem; }
+.phone__hero { flex: 0 1 auto; min-height: 0; }
+.bubble { margin-left: var(--nudge, 0px); max-width: min(16rem, calc(100vw - 24px)); white-space: normal; text-align: center; }
+
+/* Inside the demo phone: everything scales with the phone's width on every device */
+.phone__hero { flex: none; width: auto; aspect-ratio: auto; height: calc(var(--pw) * .46); margin-top: calc(var(--pw) * .02); }
+.phone__hero { display: flex; justify-content: center; align-items: flex-end; overflow: visible; }
+.phone__hero img { height: calc(var(--pw) * .46); max-height: none; width: auto; max-width: none; pointer-events: none; }
+.phone__app { font-size: clamp(.55rem, calc(var(--pw) * .036), .82rem); }
+.phone__title { font-size: clamp(.72rem, calc(var(--pw) * .062), 1.3rem); margin-top: calc(var(--pw) * .03); }
+.wave { height: calc(var(--pw) * .07); margin-top: calc(var(--pw) * .015); }
+.phone__caption { font-size: clamp(.62rem, calc(var(--pw) * .046), 1rem); line-height: 1.38; margin-top: calc(var(--pw) * .02); }
+.phone__controls { gap: calc(var(--pw) * .025); padding-top: calc(var(--pw) * .025); }
+.phone__controls button { min-height: clamp(1.8rem, calc(var(--pw) * .13), 2.75rem); font-size: clamp(.64rem, calc(var(--pw) * .045), .95rem); padding: 0 calc(var(--pw) * .055); white-space: nowrap; }
+.phone__idle p { font-size: clamp(.7rem, calc(var(--pw) * .052), 1.1rem); }
+.rings { width: calc(var(--pw) * .42); height: calc(var(--pw) * .42); }
+.rings svg { width: calc(var(--pw) * .16); height: calc(var(--pw) * .16); }
+@media (max-width: 860px) and (max-height: 780px) {
+  .wave { display: none; }
+  .phone__hero, .phone__hero img { height: calc(var(--pw) * .3); }
+}

@@ -5,3 +5,6 @@ node_modules/
 .vercel/
 # Codex session logs from image generation (not art)
 source-assets/**/log-*.txt
+
+# Full original cubbie stories: never commit or deploy (only trimmed snippets go in site/assets/audio)
+Audios/
