@@ -74,7 +74,7 @@ const gang = CUBBIES.map((c) => `
 
 const gangAll = `<div class="gang-all">
           <div class="gang-all__faces" aria-hidden="true">${CUBBIES.map((c) => `<img src="assets/img/${c.id}-300.webp" alt="" width="300" height="360" loading="lazy" style="--world:${c.world}">`).join("")}</div>
-          <p class="gang-all__text"><strong>Bring home the whole gang.</strong> All 7 cubbies, 210+ stories, songs and games.</p>
+          <p class="gang-all__text"><strong>Bring home the whole gang.</strong> All 7 cubbies, 70+ stories between them.</p>
           <span class="pal__price">₹${(CUBBIES.reduce((s, c) => s + c.price, 0)).toLocaleString("en-IN")}</span>
           <span class="gang-all__ctas">
             <a class="pick" data-add="all" href="${STORE}/cart/add?${CUBBIES.map((c) => `items%5B%5D%5Bid%5D=${c.variant}&amp;items%5B%5D%5Bquantity%5D=1`).join("&amp;")}">Add all 7 to cart</a>
